@@ -101,7 +101,7 @@ def run() -> None:
                 display_report(tracker)
 
             elif choice == "5":
-                print("Thank you for using the Susu Group Tracker.")
+                print("Thank you for using the Victor's Susu Group Tracker.")
                 break
 
             else:
@@ -120,3 +120,7 @@ if __name__ == "__main__":
 # - display_report() presents member balances and payout history.
 # - run() creates the tracker and manages the menu.
 # - The try/except blocks catch invalid input and business-rule errors instead of crashing the program
+
+
+# run app (from the project root with the virtual environment activated):
+# python -m susu_tracker.cli
