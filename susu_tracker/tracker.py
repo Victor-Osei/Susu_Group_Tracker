@@ -144,23 +144,23 @@ class SusuTracker:
 
 
     # Add the reporting method
-    def get_report(self) -> dict:
-        return {
-            "current_week": self.current_week,
-            "weekly_contribution": self.weekly_contribution,
-            "rotation_complete": self.rotation_complete,
-            "members": [
-                {
-                    "member_id": member.member_id,
-                    "name": member.name,
-                    "paid": self.weekly_payments[member_id],
-                    "owes": self.weekly_contribution
-                    - self.weekly_payments[member_id],
-                }
-                for member_id, member in self.members.items()
-            ],
-            "payout_history": list(self.payout_history),
-        }
+    #def get_report(self) -> dict:
+        #return {
+        #    "current_week": self.current_week,
+         #   "weekly_contribution": self.weekly_contribution,
+          #  "rotation_complete": self.rotation_complete,
+           # "members": [
+            #    {
+             #       "member_id": member.member_id,
+              #      "name": member.name,
+               #     "paid": self.weekly_payments[member_id],
+                #    "owes": self.weekly_contribution
+                 #   - self.weekly_payments[member_id],
+                #
+             #   for member_id, member in self.members.items()
+            #,
+            #"payout_history": list(self.payout_history),
+        #}
     #This gives us the information needed to display:
     # - The current week.
     # - Each member's payments and outstanding balance.
@@ -168,8 +168,36 @@ class SusuTracker:
     # - The full payout history.
     # A member who has paid in full will have an outstanding balance of Decimal("0.00").
 
+# replace the existing get_report method with the following updated version to handle completed rotations correctly:
+# This ensures the final report shows zero outstanding balances once the rotation is complete. The paid field reflects the completed final week's contribution.
 
+    def get_report(self) -> dict:
+        completed = self.rotation_complete
 
+        return {
+            "current_week": self.current_week,
+            "weekly_contribution": self.weekly_contribution,
+            "rotation_complete": completed,
+            "members": [
+                {
+                    "member_id": member.member_id,
+                    "name": member.name,
+                    "paid": (
+                        self.weekly_contribution
+                        if completed
+                        else self.weekly_payments[member_id]
+                    ),
+                    "owes": (
+                        Decimal("0.00")
+                        if completed
+                        else self.weekly_contribution
+                        - self.weekly_payments[member_id]
+                    ),
+                }
+                for member_id, member in self.members.items()
+            ],
+            "payout_history": list(self.payout_history),
+        }
 
 
     # Verify the tracker compiles

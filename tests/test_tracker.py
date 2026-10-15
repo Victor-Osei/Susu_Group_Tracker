@@ -185,8 +185,10 @@ def test_completed_rotation_report_shows_no_outstanding_balances():
     report = tracker.get_report()
 
     assert report["rotation_complete"] is True
-    assert all(member["owes"] == Decimal("0.00")
-               for member in report["members"])
+    assert all(
+        member["owes"] == Decimal("0.00")
+        for member in report["members"]
+    )
 
 # These tests use pytest.mark.parametrize to test multiple invalid payment amounts without repeating the same test logic.
 
