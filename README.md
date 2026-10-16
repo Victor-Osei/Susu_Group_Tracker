@@ -1,7 +1,3 @@
-# Susu_Group_Tracker
-This a challenge by Zhuwa Academy under Zhuwa Africa to build a program that manages one rotating savings group (susu as we say in Ghana).
-
-
 # Susu Group Tracker
 
 A Python command-line application for managing a rotating savings group (susu). Members contribute a fixed amount each week, and the entire pot is paid to one member in registration order.
